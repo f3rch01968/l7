@@ -1,14 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
-
-        
-    </head>
-    <body>
-       <x-alert type="danger" message="¿Deseas eliminar el registro?"/>
-    </body>
-</html>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mb-4">Últimas Entradas</h1>
+                @foreach($entries as $entry)
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            {{$entry->id}}. {{$entry->title}}
+                        </div>
+                        <div class="card-body">
+                            <p>{{$entry->content}}</p>
+                        </div>
+                        <div class="card-footer">
+                            Author:
+                            <a href="{{ url ('users/'.$entry->user_id) }}">
+                                {{ $entry->user->name }}
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+                {{$entries->links()}}
+            </div>
+        </div>
+    </div>
+@endsection
