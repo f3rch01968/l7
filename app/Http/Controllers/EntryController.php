@@ -36,11 +36,24 @@ class EntryController extends Controller
 
     public function edit(Entry $entry)
     {
+        //if(auth()->id() != $entry ->user_id){    //Evita que solo el usuario dueño de la entrada pueda editar
+        //    return redirect('/');
+        // optimizamos con Authorize
+        $this->authorize('update', $entry);
+        //}
         return view('entries.edit', compact('entry'));
     }
 
     public function update(Request $request, Entry $entry)
     {
+        //if(auth()->id() != $entry ->user_id){    //Evita que solo el usuario dueño de la entrada pueda actualizar
+        //    return redirect('/');
+
+        // Optimizamos con Authorize y con las politicas establecidas en AuthServiceProvider.php
+
+        $this->authorize('update', $entry);
+        //}
+
         // dd($request ->all());  Muestra lo que nos envia el formulario
         // Validar la informacion
         $validatedData = $request->validate([
