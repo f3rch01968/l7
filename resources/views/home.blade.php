@@ -13,16 +13,22 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if ($entries->isEmpty())
+                        <p> Todavía no has publicado ninguna Entrada!!! </p>
 
-                <p> Mis Entradas: </p>
-                    <ul>
-                       @foreach($entries as $entry)
-                           <li>
-               <!--                <a href="{{ url('entries/'.$entry->id) }}"> {{ $entry->title }} </a>  -->
-                               <a href="{{ $entry->getUrl() }}"> {{ $entry->title }} </a>
-                           </li>
-                        @endforeach
-                    </ul>
+                     @else
+                         <p> Mis Entradas: </p>
+                         <ul>
+                         @foreach($entries as $entry)
+                             <li>
+                             <!--                <a href="{{ url('entries/'.$entry->id) }}"> {{ $entry->title }} </a>  -->
+                             <a href="{{ $entry->getUrl() }}"> {{ $entry->title }} </a>
+                             </li>
+                         @endforeach
+                         </ul>
+                    @endif
+
+
 
                 </div>
             </div>
